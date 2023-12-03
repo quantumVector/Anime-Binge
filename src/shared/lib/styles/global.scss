@@ -1,0 +1,36 @@
+@import 'fonts';
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-feature-settings: 'liga' 0;
+  font-variant-ligatures: none;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  background: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+
+  @include ttnorms;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  --site-scale: calc(100vw / 1280);
+
+  @include notDesktop {
+    --site-scale: calc(100vw / 800);
+  }
+
+  @include mobile {
+    --site-scale: calc(100vw / 360);
+  }
+}

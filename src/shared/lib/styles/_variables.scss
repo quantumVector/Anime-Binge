@@ -1,0 +1,210 @@
+@mixin ttnorms() {
+  font-family: "TT Norms", sans-serif;
+  font-weight: 400;
+}
+
+@mixin ttnorms-m() {
+  font-family: "TT Norms Bold", sans-serif;
+  font-weight: 400;
+}
+
+@mixin mobile {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin notDesktop {
+  @media (min-width: 501px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin onlyHover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@function adapt($size) {
+  @return calc(var(--site-scale) * #{$size / 1px});
+}
+
+@mixin block-padding {
+  padding: adapt(24px);
+
+  @include mobile {
+    padding: adapt(16px);
+  }
+}
+
+@mixin link-block {
+  height: adapt(400px);
+  @include block-padding;
+
+  @include mobile {
+    height: adapt(320px);
+  }
+}
+
+@mixin header-xl {
+  font-size: adapt(120px);
+  line-height: adapt(100px);
+
+  @include notDesktop {
+    font-size: adapt(90px);
+    line-height: adapt(80px);
+  }
+
+  @include mobile {
+    font-size: adapt(47px);
+    line-height: adapt(44px);
+  }
+}
+
+@mixin header-l-menu {
+  font-size: adapt(72px);
+  line-height: adapt(85px);
+  text-rendering: optimizeLegibility;
+
+  @include notDesktop {
+    font-size: adapt(54px);
+    line-height: adapt(48px);
+  }
+
+  @include mobile {
+    font-size: adapt(32px);
+    line-height: adapt(32px);
+  }
+}
+
+@mixin header-l {
+  font-size: adapt(96px);
+  line-height: adapt(88px);
+  text-rendering: optimizeLegibility;
+
+  @include notDesktop {
+    font-size: adapt(64px);
+    line-height: adapt(58px);
+  }
+
+  @include mobile {
+    font-size: adapt(40px);
+    line-height: adapt(40px);
+  }
+}
+
+@mixin header-m {
+  font-size: adapt(56px);
+  line-height: adapt(56px);
+
+  @include mobile {
+    font-size: adapt(32px);
+    line-height: adapt(32px);
+  }
+}
+
+@mixin header-s {
+  font-size: adapt(32px);
+  line-height: adapt(36px);
+
+  @include mobile {
+    font-size: adapt(22px);
+    line-height: adapt(26px);
+  }
+}
+
+@mixin text-m {
+  @include ttnorms;
+  font-size: adapt(18px);
+  line-height: adapt(26px);
+  text-rendering: optimizeLegibility;
+
+  @include mobile {
+    font-size: adapt(16px);
+    line-height: adapt(24px);
+  }
+}
+
+@mixin text-m-medium {
+  @include ttnorms;
+  font-size: adapt(18px);
+  line-height: adapt(26px);
+  text-rendering: optimizeLegibility;
+  font-weight: 500;
+
+  @include mobile {
+    font-size: adapt(16px);
+    line-height: adapt(24px);
+  }
+}
+
+@mixin text-s {
+  @include ttnorms;
+  font-size: adapt(14px);
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+
+  @include notDesktop {
+    font-size: 14px;
+  }
+}
+
+@mixin accent {
+  font-size: adapt(18px);
+  line-height: adapt(18px);
+  letter-spacing: adapt(8px);
+  text-transform: uppercase;
+
+  @include mobile {
+    font-size: adapt(16px);
+    line-height: adapt(16px);
+    letter-spacing: adapt(8px);
+  }
+}
+
+@mixin text-button {
+  @include ttnorms-m;
+  font-size: adapt(14px);
+  line-height: 1.28;
+  text-transform: uppercase;
+
+  @include notDesktop {
+    font-size: 14px;
+  }
+}
+
+@mixin blueLabel {
+  color: $purple_light;
+  margin-bottom: adapt(40px);
+  font-size: adapt(18px);
+  text-transform: uppercase;
+  letter-spacing: 0.44em;
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+$purple: #6400ff;
+$purple_light: #8067ff;
+$white: #fff;
+$grey: #515151;
+$grey_dark: #2f2f31;
+$black: #000000;
+$error: #fc8890;
+$black_light: #121213;
+
+/* *
+  * Transition & ease
+  */
+$ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+$trans-fast: 0.3s $ease;
+$trans-medium: 0.6s $ease;
+$trans-slow: 0.8s $ease;
