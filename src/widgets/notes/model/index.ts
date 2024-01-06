@@ -1,1 +1,1 @@
-export { model } from './model';
+export { model as notesModel } from './model';

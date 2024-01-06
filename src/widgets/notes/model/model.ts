@@ -4,10 +4,12 @@ import { createGate } from "effector-react";
 
 const Gate = createGate<MainNotesTypes.Note[]>();
 
-const selectNote = createEvent<MainNotesTypes.Note>();
+const selectNote = createEvent<MainNotesTypes.Note | null>();
+const addNote = createEvent<MainNotesTypes.Note>();
 
 const $noteList = createStore<MainNotesTypes.Note[]>([]);
 const $activeNote = createStore<MainNotesTypes.Note | null>(null);
+const $isClientData = createStore(false);
 
 sample({
     clock: Gate.open,
@@ -17,14 +19,30 @@ sample({
 sample({
     clock: selectNote,
     target: $activeNote,
-})
+});
 
-//Gate.state.watch((state) => console.info("gate state updated", state));
-//$data.watch((state) => console.info("store", state));
-//$activeNote.watch((state) => console.info("store", state));
+sample({
+    source: $noteList,
+    clock: addNote,
+    fn: (source, clock) => {
+        return [clock, ...source];
+    },
+    target: $noteList,
+});
+
+sample({
+    clock: addNote,
+    fn: () => true,
+    target: $isClientData,
+});
+
+$noteList.watch((state) => console.info("notes store", state));
 
 export const model = {
     Gate,
     selectNote,
+    addNote,
+    $noteList,
     $activeNote,
+    $isClientData,
 }

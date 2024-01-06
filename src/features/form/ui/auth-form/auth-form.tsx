@@ -1,5 +1,3 @@
-'use client'
-
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
 import { FieldsForm, SelectOption } from '@/shared/lib/types';

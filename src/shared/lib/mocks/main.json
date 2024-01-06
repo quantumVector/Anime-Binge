@@ -55,6 +55,13 @@
             }
           ],
           "text": "test"
+        },
+        {
+          "id": 3,
+          "title": "Note name 3",
+          "desc": "Description",
+          "tags": [],
+          "text": "test note 3"
         }
       ]
     }

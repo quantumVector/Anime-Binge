@@ -1,0 +1,18 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    padding-right: 80px;
+    width: 100%;
+
+    input {
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    textarea {
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+    }
+}

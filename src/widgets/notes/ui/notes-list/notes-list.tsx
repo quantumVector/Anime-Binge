@@ -1,15 +1,16 @@
 import { Card } from '@/entities/card';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styles from './styles.module.scss';
-import { model } from '../../model';
+import { notesModel } from '../../model';
 import { MainNotesTypes } from '@/shared/lib/types';
 
 interface NotesListProps {
     data: MainNotesTypes.Note[];
     activeNoteId: number | null;
+    setForm: Dispatch<SetStateAction<boolean>>;
 }
 
-export const NotesList = ({ data, activeNoteId }: NotesListProps) => {
+export const NotesList = ({ data, activeNoteId, setForm }: NotesListProps) => {
     return (
         <div className={styles.notes}>
             {data.map((item) => (
@@ -19,7 +20,10 @@ export const NotesList = ({ data, activeNoteId }: NotesListProps) => {
                     title={item.title}
                     desc={item.desc}
                     tags={item.tags}
-                    onClick={() => model.selectNote(item)}
+                    onClick={() => {
+                        setForm(false);
+                        notesModel.selectNote(activeNoteId === item.id ? null : item);
+                    }}
                     active={activeNoteId === item.id ? true : false} />
             ))}
         </div>
