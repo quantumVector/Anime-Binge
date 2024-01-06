@@ -1,0 +1,1 @@
+export { CommonIcons } from './svg-sprite';

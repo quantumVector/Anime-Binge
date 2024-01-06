@@ -1,0 +1,45 @@
+@import '@shared/lib/styles/variables';
+
+.header-xl {
+  @include header-xl;
+}
+
+.header-l-menu {
+  @include header-l-menu;
+}
+
+.header-l {
+  @include header-l;
+}
+
+.header-m {
+  @include header-m;
+}
+
+.header-s {
+  @include header-s;
+}
+
+.accent {
+  @include accent;
+}
+
+.text-m {
+  @include text-m;
+}
+
+.text-m-medium {
+  @include text-m-medium;
+}
+
+.text-s {
+  @include text-s;
+}
+
+.text-button {
+  @include text-button;
+}
+
+.notSelectText {
+  user-select: none;
+}

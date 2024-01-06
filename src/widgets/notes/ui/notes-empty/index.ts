@@ -1,0 +1,1 @@
+export { NotesEmpty } from './notes-empty';

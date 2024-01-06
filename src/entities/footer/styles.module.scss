@@ -1,8 +1,0 @@
-@import '@shared/lib/styles/variables';
-
-.section {
-  position: relative;
-  min-height: calc(100vh - var(--site-scale) * 70);
-  @include block-padding;
-  z-index: 1;
-}

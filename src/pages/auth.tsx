@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
 import { MainLayout } from '@/widgets/layouts/main-layout';
-import { Form } from '@/entities/form';
+import { AuthForm } from '@/features/form';
 
 interface AuthProps {
 }
 
 const MainPage: NextPage<AuthProps> = () => (
     <MainLayout>
-        <Form />
+        <AuthForm />
     </MainLayout>
 );
 
