@@ -9,13 +9,14 @@ interface MainPageProps {
 }
 
 const MainPage: NextPage<MainPageProps> = ({ pageData }) => {
-    const { blocks } = pageData;
+    const { blocks } = data;
 
     return (
         <MainLayout>
             {blocks.map((block) => {
                 switch (block.type) {
                     case BlockMainType.Notes: {
+                        //@ts-ignore
                         return <Main key={block.id} {...block} />
                     }
                     default: {
@@ -29,11 +30,11 @@ const MainPage: NextPage<MainPageProps> = ({ pageData }) => {
 
 export const getServerSideProps = async () => {
     try {
-        const pageData = await data;
+        // const pageData = await data;
 
         return {
             props: {
-                pageData,
+                pageData: {},
             },
         };
     } catch (error) {
