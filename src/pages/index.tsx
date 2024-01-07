@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
 import { MainLayout } from '@/widgets/layouts/main-layout';
 import { Main } from '@/widgets/main';
-import data from '@shared/lib/mocks/main.json';
+import mocksData from '@shared/lib/mocks/main.json';
 import { BlockMainType, MainPageTypes } from '@/shared/lib/types';
+import { getDBData } from '@/shared/api/firebase';
 
 interface MainPageProps {
     pageData: MainPageTypes.MainPage;
@@ -29,7 +30,16 @@ const MainPage: NextPage<MainPageProps> = ({ pageData }) => {
 
 export const getServerSideProps = async () => {
     try {
-        const pageData = await data;
+        // ===mocks===
+        // const pageData = await mocksData;
+
+        const blocks = await getDBData('pages', 'main') as any;
+        const { data } = await getDBData('notes', '02rkIUrFiJm5SxSCZLf1') as any;
+        const pageData = {
+            ...blocks
+        }
+
+        pageData.blocks[0].data = [...data];
 
         return {
             props: {

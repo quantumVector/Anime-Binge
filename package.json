@@ -12,6 +12,7 @@
     "clsx": "^2.0.0",
     "effector": "^23.1.0",
     "effector-react": "^23.1.0",
+    "firebase": "^10.7.1",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
