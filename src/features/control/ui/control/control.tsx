@@ -3,21 +3,28 @@ import { Icon } from '@/shared/ui/icons/icon';
 import styles from './styles.module.scss';
 import { formModel } from '@/features/form/model';
 import { notesModel } from '@/widgets/notes/model';
+import { useUnit } from 'effector-react';
 
-interface ControlProps {
-    form: boolean;
-    setForm: Dispatch<SetStateAction<boolean>>;
-}
+export const Control = () => {
+    const [displayForm, formVisibility] = useUnit([
+        formModel.displayForm,
+        formModel.$formVisibility,
+    ]);
 
-export const Control = ({ form, setForm }: ControlProps) => {
+    const onDisplayForm = () => {
+        notesModel.selectNote(null);
+        displayForm(true);
+    }
+
+    const onSubmitForm = () => {
+        formModel.submitForm(true);
+    }
+
     return (
         <div className={styles.control}>
-            {!form && (
+            {!formVisibility && (
                 <>
-                    <div className={styles.control__btn} onClick={() => {
-                        setForm(true);
-                        notesModel.selectNote(null);
-                    }}>
+                    <div className={styles.control__btn} onClick={onDisplayForm}>
                         <Icon className={styles.control__icon} id='plus' />
                     </div>
                     <div className={styles.control__btn}>
@@ -28,8 +35,8 @@ export const Control = ({ form, setForm }: ControlProps) => {
                     </div>
                 </>
             )}
-            {form && (
-                <div className={styles.control__btn} onClick={() => formModel.submitForm(true)}>
+            {formVisibility && (
+                <div className={styles.control__btn} onClick={onSubmitForm}>
                     <Icon className={styles.control__icon} id='disk' />
                 </div>
             )}

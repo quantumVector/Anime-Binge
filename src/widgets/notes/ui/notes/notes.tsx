@@ -7,33 +7,33 @@ import { notesModel } from '../../model';
 import { MainNotesTypes } from '@/shared/lib/types';
 import { NotesEmpty } from '../notes-empty';
 import { NotesMaker } from '../notes-maker';
+import { formModel } from '@/features/form/model';
 
 interface NotesProps {
     data: MainNotesTypes.Note[];
-    form: boolean;
-    setForm: Dispatch<SetStateAction<boolean>>;
 }
 
-export const Notes = ({ data, form, setForm }: NotesProps) => {
+export const Notes = ({ data }: NotesProps) => {
     useGate(notesModel.Gate, data);
 
-    const [activeNote, noteList, isClientData] = useUnit([
+    const [activeNote, noteList, isClientData, formVisibility] = useUnit([
         notesModel.$activeNote,
         notesModel.$noteList,
         notesModel.$isClientData,
+        formModel.$formVisibility,
     ])
 
     const notesData = isClientData ? noteList : data;
 
     return (
         <section className={styles.notes}>
-            {form && <NotesMaker />}
-            {!form && (
+            {formVisibility && <NotesMaker />}
+            {!formVisibility && (
                 <>
                     {activeNote ? <NotesActive {...activeNote} /> : <NotesEmpty />}
                 </>
             )}
-            <NotesList data={notesData} activeNoteId={activeNote && activeNote.id} setForm={setForm} />
+            <NotesList data={notesData} activeNoteId={activeNote && activeNote.id} />
         </section>
     )
 };

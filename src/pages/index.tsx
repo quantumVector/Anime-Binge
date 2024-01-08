@@ -3,7 +3,7 @@ import { MainLayout } from '@/widgets/layouts/main-layout';
 import { Main } from '@/widgets/main';
 import mocksData from '@shared/lib/mocks/main.json';
 import { BlockMainType, MainPageTypes } from '@/shared/lib/types';
-import { getDBData } from '@/shared/api/firebase';
+import { getFirebaseData } from '@/shared/api/firebase';
 
 interface MainPageProps {
     pageData: MainPageTypes.MainPage;
@@ -33,8 +33,8 @@ export const getServerSideProps = async () => {
         // ===mocks===
         // const pageData = await mocksData;
 
-        const blocks = await getDBData('pages', 'main') as any;
-        const { data } = await getDBData('notes', '02rkIUrFiJm5SxSCZLf1') as any;
+        const blocks = await getFirebaseData('pages', 'main') as any;
+        const { data } = await getFirebaseData('notes', '02rkIUrFiJm5SxSCZLf1') as any;
         const pageData = {
             ...blocks
         }
