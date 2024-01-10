@@ -38,9 +38,11 @@ export const Control = () => {
                     <div className={styles.control__btn} onClick={onDisplayForm}>
                         <Icon className={styles.control__icon} id='plus' />
                     </div>
-                    <div className={styles.control__btn} onClick={onRemoveNote}>
-                        <Icon className={styles.control__icon} id='trash-bin' />
-                    </div>
+                    {activeNote && (
+                        <div className={styles.control__btn} onClick={onRemoveNote}>
+                            <Icon className={styles.control__icon} id='trash-bin' />
+                        </div>
+                    )}
                     <div className={styles.control__btn}>
                         <Icon className={styles.control__icon} id='bookmark' />
                     </div>
