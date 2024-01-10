@@ -27,6 +27,10 @@ export const Control = () => {
         }
     }
 
+    const onClickBack = () => {
+        displayForm(false);
+    }
+
     return (
         <div className={styles.control}>
             {!formVisibility && (
@@ -43,9 +47,14 @@ export const Control = () => {
                 </>
             )}
             {formVisibility && (
-                <div className={styles.control__btn} onClick={onSubmitForm}>
-                    <Icon className={styles.control__icon} id='disk' />
-                </div>
+                <>
+                    <div className={styles.control__btn} onClick={onClickBack}>
+                        <Icon className={styles.control__icon} id='arrow-back' />
+                    </div>
+                    <div className={styles.control__btn} onClick={onSubmitForm}>
+                        <Icon className={styles.control__icon} id='disk' />
+                    </div>
+                </>
             )}
         </div>
     )
