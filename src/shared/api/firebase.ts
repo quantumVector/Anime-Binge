@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { arrayUnion, doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { MainNotesTypes } from "../lib/types";
 
 const firebaseConfig = {
@@ -29,12 +29,12 @@ export const getFirebaseData = async (collectionName: string, documentName: stri
     }
 }
 
-export const updateFirebaseNotes = async (data: MainNotesTypes.Note) => {
+export const updateFirebaseNotes = async (data: MainNotesTypes.Note, operation?: 'remove') => {
     try {
         const docRef = doc(db, 'notes', '02rkIUrFiJm5SxSCZLf1');
 
         await updateDoc(docRef, {
-            data: arrayUnion(data)
+            data: operation === 'remove' ? arrayRemove(data) : arrayUnion(data),
         });
     } catch(e) {
         console.error("Error updating document: ", e);

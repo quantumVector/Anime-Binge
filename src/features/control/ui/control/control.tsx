@@ -6,9 +6,10 @@ import { notesModel } from '@/widgets/notes/model';
 import { useUnit } from 'effector-react';
 
 export const Control = () => {
-    const [displayForm, formVisibility] = useUnit([
+    const [displayForm, formVisibility, activeNote] = useUnit([
         formModel.displayForm,
         formModel.$formVisibility,
+        notesModel.$activeNote
     ]);
 
     const onDisplayForm = () => {
@@ -20,6 +21,12 @@ export const Control = () => {
         formModel.submitForm(true);
     }
 
+    const onRemoveNote = () => {
+        if (activeNote) {
+            notesModel.removeNote(activeNote);
+        }
+    }
+
     return (
         <div className={styles.control}>
             {!formVisibility && (
@@ -27,7 +34,7 @@ export const Control = () => {
                     <div className={styles.control__btn} onClick={onDisplayForm}>
                         <Icon className={styles.control__icon} id='plus' />
                     </div>
-                    <div className={styles.control__btn}>
+                    <div className={styles.control__btn} onClick={onRemoveNote}>
                         <Icon className={styles.control__icon} id='trash-bin' />
                     </div>
                     <div className={styles.control__btn}>

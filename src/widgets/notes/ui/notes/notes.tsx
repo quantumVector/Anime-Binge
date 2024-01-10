@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactEventHandler, SetStateAction } from 'react';
+import React from 'react';
 import styles from './styles.module.scss';
 import { NotesActive } from '../notes-active';
 import { NotesList } from '../notes-list';
@@ -21,7 +21,7 @@ export const Notes = ({ data }: NotesProps) => {
         notesModel.$noteList,
         notesModel.$isClientData,
         formModel.$formVisibility,
-    ])
+    ]);
 
     const notesData = isClientData ? noteList : data;
 
