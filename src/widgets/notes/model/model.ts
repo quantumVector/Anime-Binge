@@ -1,26 +1,19 @@
-import { updateFirebaseNotes } from "@/shared/api/firebase";
+import { useFirebase } from "@/shared/api/firebase";
 import { MainNotesTypes } from "@/shared/lib/types";
-import { createEffect, createEvent, createStore, merge, sample } from "effector";
+import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
 
-const Gate = createGate<MainNotesTypes.Note[]>();
-
 const selectNote = createEvent<MainNotesTypes.Note | null>();
-const addNote = createEvent<MainNotesTypes.Note>();
 const removeNote = createEvent<MainNotesTypes.Note>();
-const addOrRemoveNote = merge([addNote, removeNote]);
 const updateNoteList = createEvent<MainNotesTypes.Note[]>();
 
-const removeNoteFx = createEffect<any, any>((data) => updateFirebaseNotes(data, 'remove'));
+const removeNoteFx = createEffect((data: MainNotesTypes.Note) => useFirebase({
+    noteData: data,
+    operation: 'remove',
+}));
 
 const $noteList = createStore<MainNotesTypes.Note[]>([]);
 const $activeNote = createStore<MainNotesTypes.Note | null>(null);
-const $isClientData = createStore(false);
-
-sample({
-    clock: Gate.open,
-    target: $noteList,
-});
 
 sample({
     clock: selectNote,
@@ -28,40 +21,19 @@ sample({
 });
 
 sample({
-    source: $noteList,
-    clock: addNote,
-    fn: (source, clock) => {
-        return [clock, ...source];
-    },
-    target: $noteList,
-});
-
-sample({
-    clock: addOrRemoveNote,
-    fn: () => true,
-    target: $isClientData,
-});
-
-$noteList.watch((state) => console.info("Notes store updated!", state));
-
-sample({
-    source: $activeNote,
     clock: removeNote,
     target: removeNoteFx,
 });
 
-removeNoteFx.done.watch((data) => {
-    console.log('Document successfully updated!');
-
-    let notesList = $noteList.getState();
-    const filteredNotesList = notesList.filter((item) => item.id !== data.params.id);
-
-    updateNoteList(filteredNotesList);
-    selectNote(null);
+sample({
+    clock: removeNoteFx.doneData,
+    target: $noteList,
 });
 
-removeNoteFx.fail.watch((error) => {
-    console.error("Form submission failed:", error);
+sample({
+    clock: removeNoteFx.doneData,
+    fn: () => null,
+    target: selectNote,
 });
 
 sample({
@@ -69,13 +41,20 @@ sample({
     target: $noteList,
 });
 
+const Gate = createGate<MainNotesTypes.Note[]>();
+
+sample({
+    clock: Gate.open,
+    target: $noteList,
+});
+
+$noteList.watch((state) => console.info("Notes store updated!", state));
+
 export const model = {
     Gate,
     selectNote,
-    addNote,
     removeNote,
     updateNoteList,
     $noteList,
     $activeNote,
-    $isClientData,
 }

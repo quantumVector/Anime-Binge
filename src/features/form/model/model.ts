@@ -1,16 +1,25 @@
-import { updateFirebaseNotes } from "@/shared/api/firebase";
-import { MainNotesTypes } from "@/shared/lib/types";
+import { useFirebase } from "@/shared/api/firebase";
+import { FormData, MainNotesTypes } from "@/shared/lib/types";
 import { notesModel } from "@/widgets/notes/model";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
 const updateFormData = createEvent<MainNotesTypes.Note>();
-const submitForm = createEvent<boolean>();
+const submitForm = createEvent<FormData>();
 const displayForm = createEvent<boolean>();
 
-const submitFormFx = createEffect<any, any>((data) => updateFirebaseNotes(data));
+const submitFormFx = createEffect((data: FormData): Promise<MainNotesTypes.Note[]> => useFirebase({
+    noteData: data.noteData,
+    operation: data.operation,
+}));
 
 const $formVisibility = createStore<boolean>(false);
-const $formDataStore = createStore<MainNotesTypes.Note | null>(null);
+const $formDataStore = createStore<MainNotesTypes.Note>({
+    id: 0,
+    title: '',
+    desc: '',
+    tags: [],
+    text: '',
+});
 
 sample({
     clock: updateFormData,
@@ -24,28 +33,25 @@ sample({
 
 sample({
     clock: submitForm,
-    fn: () => {
-        const formData = $formDataStore.getState();
-
-        if (formData) {
-            return formData;
-        }
-
-        return null;
-    },
     target: submitFormFx,
 });
 
-submitFormFx.done.watch((data) => {
-    console.log('Document successfully updated!');
-
-    notesModel.addNote(data.params);
-    notesModel.selectNote(data.params);
-    displayForm(false);
+sample({
+    clock: submitFormFx.doneData,
+    target: notesModel.updateNoteList,
 });
 
-submitFormFx.fail.watch((error) => {
-    console.error("Form submission failed:", error);
+sample({
+    clock: submitFormFx.doneData,
+    fn: () => false,
+    target: $formVisibility,
+});
+
+sample({
+    source: submitForm,
+    clock: submitFormFx.doneData,
+    fn: (source) => source.noteData,
+    target: notesModel.selectNote,
 });
 
 export const model = {

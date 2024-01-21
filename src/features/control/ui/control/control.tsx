@@ -4,32 +4,51 @@ import styles from './styles.module.scss';
 import { formModel } from '@/features/form/model';
 import { notesModel } from '@/widgets/notes/model';
 import { useUnit } from 'effector-react';
+import { controlModel } from '../../model';
+import clsx from 'clsx';
 
 export const Control = () => {
-    const [displayForm, formVisibility, activeNote] = useUnit([
+    const [
+        displayForm,
+        formVisibility,
+        activeNote,
+        formDataStore,
+        submitButtonStatus,
+    ] = useUnit([
         formModel.displayForm,
         formModel.$formVisibility,
-        notesModel.$activeNote
+        notesModel.$activeNote,
+        formModel.$formDataStore,
+        controlModel.$submitButtonStatus,
     ]);
 
     const onDisplayForm = () => {
         notesModel.selectNote(null);
         displayForm(true);
-    }
+    };
+
+    const onEditeNote = () => {
+        displayForm(true);
+    };
 
     const onSubmitForm = () => {
-        formModel.submitForm(true);
-    }
+        if (submitButtonStatus) {
+            formModel.submitForm({
+                noteData: formDataStore,
+                operation: activeNote ? 'update' : 'add',
+            });
+        }
+    };
 
     const onRemoveNote = () => {
         if (activeNote) {
             notesModel.removeNote(activeNote);
         }
-    }
+    };
 
     const onClickBack = () => {
         displayForm(false);
-    }
+    };
 
     return (
         <div className={styles.control}>
@@ -39,9 +58,14 @@ export const Control = () => {
                         <Icon className={styles.control__icon} id='plus' />
                     </div>
                     {activeNote && (
-                        <div className={styles.control__btn} onClick={onRemoveNote}>
-                            <Icon className={styles.control__icon} id='trash-bin' />
-                        </div>
+                        <>
+                            <div className={styles.control__btn} onClick={onEditeNote}>
+                                <Icon className={styles.control__icon} id='pencil' />
+                            </div>
+                            <div className={styles.control__btn} onClick={onRemoveNote}>
+                                <Icon className={styles.control__icon} id='trash-bin' />
+                            </div>
+                        </>
                     )}
                     <div className={styles.control__btn}>
                         <Icon className={styles.control__icon} id='bookmark' />
@@ -53,7 +77,10 @@ export const Control = () => {
                     <div className={styles.control__btn} onClick={onClickBack}>
                         <Icon className={styles.control__icon} id='arrow-back' />
                     </div>
-                    <div className={styles.control__btn} onClick={onSubmitForm}>
+                    <div
+                        className={clsx(styles.control__btn, !submitButtonStatus && styles.control__disable)}
+                        onClick={onSubmitForm}
+                    >
                         <Icon className={styles.control__icon} id='disk' />
                     </div>
                 </>

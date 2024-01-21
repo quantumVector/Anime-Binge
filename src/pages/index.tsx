@@ -39,7 +39,7 @@ export const getServerSideProps = async () => {
             ...blocks
         }
 
-        pageData.blocks[0].data = [...data];
+        pageData.blocks[0].data = [...data].reverse();
 
         return {
             props: {

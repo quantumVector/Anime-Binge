@@ -16,14 +16,11 @@ interface NotesProps {
 export const Notes = ({ data }: NotesProps) => {
     useGate(notesModel.Gate, data);
 
-    const [activeNote, noteList, isClientData, formVisibility] = useUnit([
+    const [activeNote, noteList, formVisibility] = useUnit([
         notesModel.$activeNote,
         notesModel.$noteList,
-        notesModel.$isClientData,
         formModel.$formVisibility,
     ]);
-
-    const notesData = isClientData ? noteList : data;
 
     return (
         <section className={styles.notes}>
@@ -33,7 +30,7 @@ export const Notes = ({ data }: NotesProps) => {
                     {activeNote ? <NotesActive {...activeNote} /> : <NotesEmpty />}
                 </>
             )}
-            <NotesList data={notesData} activeNoteId={activeNote && activeNote.id} />
+            <NotesList data={noteList} activeNoteId={activeNote && activeNote.id} />
         </section>
     )
 };

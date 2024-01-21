@@ -1,3 +1,5 @@
+import { MainNotesTypes } from "./main";
+
 export type FieldsForm = {
     select: string;
     firstName: string;
@@ -8,4 +10,9 @@ export type FieldsForm = {
 export type SelectOption = {
     value: string;
     label: string;
+}
+
+export type FormData = {
+    noteData: MainNotesTypes.Note;
+    operation: 'add' | 'remove' | 'update';
 }
