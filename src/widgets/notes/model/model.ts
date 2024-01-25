@@ -2,6 +2,7 @@ import { useFirebase } from "@/shared/api/firebase";
 import { MainNotesTypes } from "@/shared/lib/types";
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { createGate } from "effector-react";
+import { debug, once } from "patronum";
 
 const selectNote = createEvent<MainNotesTypes.Note | null>();
 const removeNote = createEvent<MainNotesTypes.Note>();
@@ -33,7 +34,7 @@ sample({
 sample({
     clock: removeNoteFx.doneData,
     fn: () => null,
-    target: selectNote,
+    target: $activeNote,
 });
 
 sample({
@@ -44,11 +45,11 @@ sample({
 const Gate = createGate<MainNotesTypes.Note[]>();
 
 sample({
-    clock: Gate.open,
+    clock: once(Gate.open),
     target: $noteList,
 });
 
-$noteList.watch((state) => console.info("Notes store updated!", state));
+debug({ noteList: $noteList });
 
 export const model = {
     Gate,

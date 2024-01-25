@@ -2,6 +2,7 @@ import { useFirebase } from "@/shared/api/firebase";
 import { FormData, MainNotesTypes } from "@/shared/lib/types";
 import { notesModel } from "@/widgets/notes/model";
 import { createEffect, createEvent, createStore, sample } from "effector";
+import { debug, reset, status } from "patronum";
 
 const updateFormData = createEvent<MainNotesTypes.Note>();
 const submitForm = createEvent<FormData>();
@@ -20,6 +21,16 @@ const $formDataStore = createStore<MainNotesTypes.Note>({
     tags: [],
     text: '',
 });
+const $status = status(submitFormFx);
+const $loader = createStore<boolean>(false);
+
+sample({
+    clock: $status,
+    fn: (value) => value === 'pending' ? true : false,
+    target: $loader,
+});
+
+debug({ loader: $loader });
 
 sample({
     clock: updateFormData,
@@ -41,9 +52,8 @@ sample({
     target: notesModel.updateNoteList,
 });
 
-sample({
+reset({
     clock: submitFormFx.doneData,
-    fn: () => false,
     target: $formVisibility,
 });
 
@@ -54,10 +64,14 @@ sample({
     target: notesModel.selectNote,
 });
 
+debug(submitForm);
+
 export const model = {
     updateFormData,
     submitForm,
     displayForm,
     $formVisibility,
     $formDataStore,
+    $status,
+    $loader,
 };

@@ -14,6 +14,7 @@
     "effector-react": "^23.1.0",
     "firebase": "^10.7.1",
     "next": "14.0.3",
+    "patronum": "^2.1.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
