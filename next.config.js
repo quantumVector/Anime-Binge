@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-}
-
-module.exports = nextConfig
+    babel: {
+      plugins: [
+        [
+          "effector/babel-plugin",
+          {
+            factories: [
+              "effector-forms"
+            ]
+          }
+        ]
+      ]
+    }
+  }
+  
+  module.exports = nextConfig

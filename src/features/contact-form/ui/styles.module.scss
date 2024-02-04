@@ -52,15 +52,30 @@
     }
   }
 
-  .error {
+  &__error {
     color: red;
     display: block;
     margin-top: 5px;
   }
 
+  &__phoneError {
+    margin-top: -5px;
+    margin-bottom: 10px;
+  }
+
   .buttons {
     display: flex;
     flex-direction: column;
+
+    &__disabled {
+      background: $light-bg;
+      opacity: 0.5;
+
+      &:hover {
+        background: $light-bg;
+        cursor: default;
+      }
+    }
   }
 
   button {

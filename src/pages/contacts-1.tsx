@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { MainLayout } from '@/widgets/layouts/main-layout';
-import { AuthForm, ContactForm } from '@/features/form';
+import { ContactForm } from '@/features/contact-form';
 
 interface Form1Props {
 }
