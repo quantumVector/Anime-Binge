@@ -23,4 +23,13 @@
     &__active {
         border: 1px solid red;
     }
+
+    &__waiting {
+        opacity: 0.3;
+    }
+
+    &__selected {
+        opacity: 1;
+        border: 1px solid green;
+    }
 }

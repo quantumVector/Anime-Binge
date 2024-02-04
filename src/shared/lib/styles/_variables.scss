@@ -1,3 +1,10 @@
+$dark-bg: #333;
+$light-bg: #555;
+$border-color: #ccc;
+$button-bg: #4CAF50;
+
+$form-max-width: 400px;
+
 @mixin ttnorms() {
   font-family: "TT Norms", sans-serif;
   font-weight: 400;

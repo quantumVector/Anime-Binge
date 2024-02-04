@@ -1434,6 +1434,11 @@ dom-helpers@^5.0.1:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
 
+effector-forms@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/effector-forms/-/effector-forms-1.3.4.tgz#0d32953f6f4e906be2713cd145e4f3b6ec0323a0"
+  integrity sha512-m/Swvhf6eDyEgYINULCXLZf9uhMMicYQs4Te3bg5Hx2WdUeq5Cts18QwHU+YxoTTJh06rptWbHk0QHHmI4uPuA==
+
 effector-react@^23.1.0:
   version "23.1.0"
   resolved "https://registry.yarnpkg.com/effector-react/-/effector-react-23.1.0.tgz#3e83bd164e8386c5d0ed4318321385475f147cb9"

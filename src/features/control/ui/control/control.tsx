@@ -14,12 +14,16 @@ export const Control = () => {
         activeNote,
         formDataStore,
         submitButtonStatus,
+        activateMultipleSelectMod,
+        multipleSelectMod,
     ] = useUnit([
         formModel.displayForm,
         formModel.$formVisibility,
         notesModel.$activeNote,
         formModel.$formDataStore,
         controlModel.$submitButtonStatus,
+        notesModel.activateMultipleSelectMod,
+        notesModel.$multipleSelectMod
     ]);
 
     const onDisplayForm = () => {
@@ -50,6 +54,10 @@ export const Control = () => {
         displayForm(false);
     };
 
+    const onClickMultipleSelectMod = () => {
+        activateMultipleSelectMod(!multipleSelectMod);
+    }
+
     return (
         <div className={styles.control}>
             {!formVisibility && (
@@ -69,6 +77,9 @@ export const Control = () => {
                     )}
                     <div className={styles.control__btn}>
                         <Icon className={styles.control__icon} id='bookmark' />
+                    </div>
+                    <div className={styles.control__btn} onClick={onClickMultipleSelectMod}>
+                        <Icon className={styles.control__icon} id='select' />
                     </div>
                 </>
             )}

@@ -16,10 +16,18 @@ interface NotesProps {
 export const Notes = ({ data }: NotesProps) => {
     useGate(notesModel.Gate, data);
 
-    const [activeNote, noteList, formVisibility] = useUnit([
+    const [
+        activeNote,
+        noteList,
+        formVisibility,
+        multipleSelectMod,
+        selectedNotes,
+    ] = useUnit([
         notesModel.$activeNote,
         notesModel.$noteList,
         formModel.$formVisibility,
+        notesModel.$multipleSelectMod,
+        notesModel.$selectedNotes,
     ]);
 
     return (
@@ -30,7 +38,12 @@ export const Notes = ({ data }: NotesProps) => {
                     {activeNote ? <NotesActive {...activeNote} /> : <NotesEmpty />}
                 </>
             )}
-            <NotesList data={noteList} activeNoteId={activeNote && activeNote.id} />
+            <NotesList
+                data={noteList}
+                activeNoteId={activeNote && activeNote.id}
+                multipleSelectMod={multipleSelectMod}
+                selectedNotes={selectedNotes}
+            />
         </section>
     )
 };

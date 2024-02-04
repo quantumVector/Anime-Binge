@@ -8,9 +8,11 @@ import { formModel } from '@/features/form/model';
 interface NotesListProps {
     data: MainNotesTypes.Note[];
     activeNoteId: number | null;
+    multipleSelectMod: boolean;
+    selectedNotes: MainNotesTypes.Note[];
 }
 
-export const NotesList = ({ data, activeNoteId }: NotesListProps) => {
+export const NotesList = ({ data, activeNoteId, multipleSelectMod, selectedNotes }: NotesListProps) => {
     const onSelectNote = (item: MainNotesTypes.Note) => {
         formModel.displayForm(false);
         notesModel.selectNote(activeNoteId === item.id ? null : item);
@@ -26,7 +28,10 @@ export const NotesList = ({ data, activeNoteId }: NotesListProps) => {
                     desc={item.desc}
                     tags={item.tags}
                     onClick={() => onSelectNote(item)}
-                    active={activeNoteId === item.id ? true : false} />
+                    active={activeNoteId === item.id ? true : false} 
+                    waiting={multipleSelectMod}
+                    selected={selectedNotes.find((note) => note.id === item.id)}
+                />
             ))}
         </div>
     )
