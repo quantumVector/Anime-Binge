@@ -1439,6 +1439,13 @@ effector-forms@^1.3.4:
   resolved "https://registry.yarnpkg.com/effector-forms/-/effector-forms-1.3.4.tgz#0d32953f6f4e906be2713cd145e4f3b6ec0323a0"
   integrity sha512-m/Swvhf6eDyEgYINULCXLZf9uhMMicYQs4Te3bg5Hx2WdUeq5Cts18QwHU+YxoTTJh06rptWbHk0QHHmI4uPuA==
 
+effector-react-form@^3.0.0-4:
+  version "3.0.0-4"
+  resolved "https://registry.yarnpkg.com/effector-react-form/-/effector-react-form-3.0.0-4.tgz#10f5e692ca2ebd408ff1b443d49980a02bc9d858"
+  integrity sha512-xjyhLJlgpmASSm3tp5DM+ATlpYwdw/rbPoXvRXID9rXyul/ufX61WU8NJrih/UVFGXe1i6FM3eRlhrhq4S0ndA==
+  dependencies:
+    lodash.topath "^4.5.2"
+
 effector-react@^23.1.0:
   version "23.1.0"
   resolved "https://registry.yarnpkg.com/effector-react/-/effector-react-23.1.0.tgz#3e83bd164e8386c5d0ed4318321385475f147cb9"
@@ -2575,6 +2582,11 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.topath@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
+  integrity sha512-1/W4dM+35DwvE/iEd1M9ekewOSTlpFekhw9mhAtrwjVqUr83/ilQiyAvmg4tVX7Unkcfl1KC+i9WdaT4B6aQcg==
 
 long@^5.0.0:
   version "5.2.3"

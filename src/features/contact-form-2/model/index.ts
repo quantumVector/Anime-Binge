@@ -1,0 +1,1 @@
+export { model as contactForm2Model } from './model';
