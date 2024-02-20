@@ -8,7 +8,8 @@ export const rules = {
     }),
     email: (): Rule<string> => ({
         name: "email",
-        validator: (value: string) => /\S+@\S+\.\S+/.test(value)
+        validator: (value: string) => /\S+@\S+\.\S+/.test(value),
+        errorText: 'Неверная почта',
     }),
     minLength: (min: number): Rule<string> => ({
         name: "minLength",
@@ -22,7 +23,7 @@ export const rules = {
         name: "phoneNumberFormat",
         validator: (value: string) => /\d{10}/.test(value),
     }),
-    phoneRequired: (): Rule<string> => ({
+    phoneRequired: (): Rule<Phone[]> => ({
         name: "phoneRequired",
         validator: (value: any): boolean => {
             let result = true;

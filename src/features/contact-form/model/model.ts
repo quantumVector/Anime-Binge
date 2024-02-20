@@ -32,7 +32,6 @@ const loginForm: Form<LoginFormFields> = createForm({
         phones: {
             init: [{ number: '', numberType: 'main' }],
             rules: [
-                // @ts-ignore
                 rules.phoneRequired(),
             ],
         },
@@ -40,7 +39,7 @@ const loginForm: Form<LoginFormFields> = createForm({
     validateOn: ['submit', 'blur'],
 })
 
-const loginFx = createEffect(async (data: any) => {
+const loginFx = createEffect((data: any) => {
     console.log("data:", data);
 
     return new Promise((resolve) => {

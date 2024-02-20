@@ -61,9 +61,7 @@ export const ContactForm = () => {
                     onChange={(e) => fields.email.onChange(e.target.value)}
                 />
                 <span className={styles.form__error}>
-                    {fields.email.errorText({
-                        "email": " Неверная почта",
-                    })}
+                    {fields.email.errorText()}
                 </span>
             </label>
 
