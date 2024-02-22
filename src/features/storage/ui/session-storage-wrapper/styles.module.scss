@@ -1,0 +1,44 @@
+.storage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    padding: 10px 60px 20px 60px;
+    border: 1px solid black;
+    border-radius: 20px;
+
+    &:first-child {
+        margin-right: 20px;
+    }
+
+    &__title {
+        margin-bottom: 20px;
+    }
+
+    &__items {
+        width: 100%;
+    }
+
+    &__plus,
+    &__reset {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        padding-bottom: 2px;
+        margin-top: 20px;
+        border: 1px solid black;
+        background-color: rgb(222, 222, 222);
+        border-radius: 20px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(194, 194, 194);
+        }
+    }
+
+    &__reset {
+        margin-top: 10px;
+    }
+}
