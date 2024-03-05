@@ -1,9 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import { LocalStorageWrapper } from './local-storage-wrapper';
-import { SessionStorageWrapper } from './session-storage-wrapper';
-import { LocalStorageMirror } from './local-storage-mirror';
-import { SessionStorageMirror } from './session-storage-mirror';
+import { StorageWrapper } from './storage-wrapper';
+import { StorageMirror } from './storage-mirror';
 
 interface StorageProps {
     type: 'page-1' | 'page-2';
@@ -14,14 +12,14 @@ export const Storage = ({ type }: StorageProps) => {
         <div className={styles.storage}>
             {type === 'page-1' && (
                 <>
-                    <LocalStorageWrapper />
-                    <SessionStorageWrapper />
+                    <StorageWrapper storage='local' />
+                    <StorageWrapper storage='session' />
                 </>
             )}
             {type === 'page-2' && (
                 <>
-                    <LocalStorageMirror />
-                    <SessionStorageMirror />
+                    <StorageMirror storage='local' />
+                    <StorageMirror storage='session' />
                 </>
             )}
         </div>

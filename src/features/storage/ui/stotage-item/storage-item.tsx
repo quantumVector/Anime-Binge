@@ -1,40 +1,32 @@
-import React, { Dispatch, MutableRefObject, SetStateAction, useState } from 'react';
+import React, { MutableRefObject, useState } from 'react';
 import styles from './styles.module.scss';
 import { Icon } from '@/shared/ui/icons/icon';
+import { storageModel } from '../../model';
+import { Item } from '../../model/model';
 
-type Item = {
-    id: number;
-    content: string;
-}[];
 
 interface StorageItemProps {
     type: 'local' | 'session';
     id: number;
     content: string;
     items: Item;
-    setter: Dispatch<SetStateAction<Item>>;
-    broadcastChannel?: MutableRefObject<BroadcastChannel>;
+    broadcastChannel: MutableRefObject<BroadcastChannel>;
 }
 
-export const StorageItem = ({ type, id, content: initialContent, items, setter, broadcastChannel }: StorageItemProps) => {
+export const StorageItem = ({ type, id, content: initialContent, items, broadcastChannel }: StorageItemProps) => {
     const [content, setContent] = useState(initialContent);
     const [isEditing, setIsEditing] = useState(false);
 
     const deleteItem = () => {
         const updatedItems = items.filter(item => item.id !== id);
 
-        setter(updatedItems);
-
         if (type === 'local') {
-            localStorage.setItem('localItems', JSON.stringify(updatedItems));
+            storageModel.updateLocalItems(updatedItems);
         }
 
         if (type === 'session') {
-            sessionStorage.setItem('sessionItems', JSON.stringify(updatedItems));
-
-            if (broadcastChannel) {
-                broadcastChannel.current.postMessage({ sessionItems: updatedItems });
-            }
+            storageModel.updateSessionItems(updatedItems);
+            broadcastChannel.current.postMessage({ sessionItems: updatedItems });
         }
     }
 
@@ -51,18 +43,13 @@ export const StorageItem = ({ type, id, content: initialContent, items, setter, 
             item.id === id ? { ...item, content } : item
         );
 
-        setter(updatedItems);
-
         if (type === 'local') {
-            localStorage.setItem('localItems', JSON.stringify(updatedItems));
+            storageModel.updateLocalItems(updatedItems);
         }
 
         if (type === 'session') {
-            sessionStorage.setItem('sessionItems', JSON.stringify(updatedItems));
-
-            if (broadcastChannel) {
-                broadcastChannel.current.postMessage({ sessionItems: updatedItems });
-            }
+            storageModel.updateSessionItems(updatedItems);
+            broadcastChannel.current.postMessage({ sessionItems: updatedItems });
         }
 
         setIsEditing(false);
