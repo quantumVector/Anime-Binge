@@ -29,7 +29,7 @@ export const StorageWrapper = ({ storage }: StorageWrapperProps) => {
         storageModel.updateSessionItems,
         storageModel.resetSession,
     ]);
-    const broadcastChannelRef = useRef(new BroadcastChannel('sessionItemsChannel'));
+    const broadcastChannelRef = useRef(new BroadcastChannel('sessionItems'));
     const items = storage === 'local' ? localItems : sessionItems;
 
     useEffect(() => {

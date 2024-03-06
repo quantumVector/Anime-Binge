@@ -2,6 +2,7 @@ import { createEvent, createStore, sample } from "effector";
 import { persist as persistLocal } from "effector-storage/local";
 import { persist as persistSession } from 'effector-storage/broadcast';
 import { reset } from 'patronum';
+import { persistentStorage } from "./persistentStorage";
 
 export type Item = {
     id: number;
@@ -19,9 +20,26 @@ const $sessionCount = createStore<number>(1);
 const $localItems = createStore<Item>([]);
 const $sessionItems = createStore<Item>([]);
 
-persistLocal({
+// persistLocal({
+//     store: $localItems,
+//     key: 'localItems',
+// });
+
+// persistSession({
+//     store: $sessionItems,
+//     key: 'sessionItems',
+// });
+
+persistentStorage({
     store: $localItems,
     key: 'localItems',
+    adapter: 'local',
+});
+
+persistentStorage({
+    store: $sessionItems,
+    key: 'sessionItems',
+    adapter: 'session',
 });
 
 sample({
@@ -40,11 +58,6 @@ reset({
     target: [$localCount, $localItems],
 });
 
-persistSession({
-    store: $sessionItems,
-    key: 'sessionItems',
-});
-
 sample({
     clock: updateSessionItems,
     target: $sessionItems,
@@ -60,7 +73,6 @@ reset({
     clock: resetSession,
     target: [$sessionCount, $sessionItems],
 });
-
 
 export const model = {
     updateLocalItems,
