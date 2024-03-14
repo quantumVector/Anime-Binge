@@ -60,9 +60,8 @@ export const persistentStorage = ({ store, key, adapter }: PersistentStorageProp
     }
 
     const setSessionStorageSending = () => {
-        const handleBroadcastMessage = (event: MessageEvent) => {
-            console.log('event.data', event.data);
-            const { sessionItems } = event.data;
+        const handleBroadcastMessage = (e: MessageEvent) => {
+            const { sessionItems } = e.data;
 
             updateStore(sessionItems);
         };

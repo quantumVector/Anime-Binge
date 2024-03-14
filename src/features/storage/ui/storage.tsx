@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import { StorageWrapper } from './storage-wrapper';
+import { StorageMaker } from './storage-maker';
 import { StorageMirror } from './storage-mirror';
 
 interface StorageProps {
@@ -12,8 +12,8 @@ export const Storage = ({ type }: StorageProps) => {
         <div className={styles.storage}>
             {type === 'page-1' && (
                 <>
-                    <StorageWrapper storage='local' />
-                    <StorageWrapper storage='session' />
+                    <StorageMaker storage='local' />
+                    <StorageMaker storage='session' />
                 </>
             )}
             {type === 'page-2' && (

@@ -4,11 +4,11 @@ import { StorageItem } from '../stotage-item';
 import { useUnit } from 'effector-react';
 import { storageModel } from '../../model';
 
-interface StorageWrapperProps {
+interface StorageMakerProps {
     storage: 'local' | 'session';
 }
 
-export const StorageWrapper = ({ storage }: StorageWrapperProps) => {
+export const StorageMaker = ({ storage }: StorageMakerProps) => {
     const [isClient, setIsClient] = useState(false);
     const [
         localItems,
