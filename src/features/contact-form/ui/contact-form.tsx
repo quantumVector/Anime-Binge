@@ -31,6 +31,27 @@ export const ContactForm = () => {
         ]);
     };
 
+    const getHackerNewsSimple = async () => {
+        await fetch('http://localhost/api/hacker-news-simple', {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => console.log(data));
+    }
+
+    const getHackerNewsDifficult = () => {
+        fetch('http://localhost/api/hacker-news-difficult', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'API-Key': '123',
+            },
+            credentials: "include",
+        })
+            .then(response => response.json())
+            .then(data => console.log(data));
+    }
+
     return (
         <form className={styles.form} onSubmit={onSubmit}>
             <label>
@@ -102,6 +123,8 @@ export const ContactForm = () => {
                 >
                     Отправить
                 </button>
+                <button id="hacker-news" onClick={getHackerNewsSimple}>get hacker news simple</button>
+                <button id="hacker-news" onClick={getHackerNewsDifficult}>get hacker news difficult</button>
             </div>
         </form>
     );

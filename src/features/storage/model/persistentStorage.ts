@@ -37,6 +37,11 @@ export const persistentStorage = ({ store, key, adapter }: PersistentStorageProp
         }
     };
 
+    // sample({
+    //     clock: store,
+    //     target: setStoreWatching
+    // })
+
     const setStoreWatching = () => {
         if (storage) {
             store.watch((items: any) => {
