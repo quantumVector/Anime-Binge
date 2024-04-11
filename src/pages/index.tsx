@@ -28,7 +28,12 @@ const MainPage: NextPage<MainPageProps> = ({ pageData }) => {
     )
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
+    const nonce = context.req.headers['x-nonce'] || '';
+    // Далее вы можете использовать значение nonce в вашем коде
+    // Например, передать его как свойство в вашу компоненту
+    //console.log('Nonce server', context.req.headers)
+
     try {
         // ===mocks===
         // const pageData = await mocksData;

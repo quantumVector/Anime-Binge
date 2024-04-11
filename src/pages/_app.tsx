@@ -3,6 +3,7 @@ import Head from 'next/head';
 import '@shared/lib/styles/global.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
+  console.log(pageProps)
   return (
     <>
       <Head>
